@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS content_review_queue (
   
   -- Origen y autoría
   source VARCHAR(100) NOT NULL DEFAULT 'notebooklm',
-  author VARCHAR(255) DEFAULT 'Marcelo Roffé',
+  author VARCHAR(255) DEFAULT 'Fair Support Fair Play',
   imported_at TIMESTAMP DEFAULT NOW(),
   
   -- Estado de revisión (CIRCUITO CERRADO)
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS faq_items (
   answer TEXT NOT NULL,
   
   -- Metadatos
-  author VARCHAR(255) DEFAULT 'Marcelo Roffé',
+  author VARCHAR(255) DEFAULT 'Fair Support Fair Play',
   age_group VARCHAR(50) CHECK (age_group IN ('8-12', '13-15', '16-18', 'all')),
   sport VARCHAR(100) DEFAULT 'fútbol',
   tags JSONB DEFAULT '[]'::jsonb,
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS exercise_items (
   helpful_count INT DEFAULT 0,
   
   -- Auditoría
-  author VARCHAR(255) DEFAULT 'Marcelo Roffé',
+  author VARCHAR(255) DEFAULT 'Fair Support Fair Play',
   published_at TIMESTAMP DEFAULT NOW(),
   approved_by UUID REFERENCES users(id),
   source_review_id VARCHAR(255) REFERENCES content_review_queue(review_id)
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS content_library (
   thumbnail_url TEXT,
   
   -- Metadatos
-  author VARCHAR(255) DEFAULT 'Marcelo Roffé',
+  author VARCHAR(255) DEFAULT 'Fair Support Fair Play',
   category VARCHAR(100),
   duration_minutes INT, -- Para videos y podcasts
   tags JSONB DEFAULT '[]'::jsonb,
@@ -434,4 +434,5 @@ INSERT INTO faq_items (category, question, answer, age_group, sport) VALUES
 -- - Log completo de conversaciones para análisis
 -- - Sin contenido generado "on the fly" sin revisión
 --
--- © Marcelo Roffe 2026 - Fair Support Fair Play
+-- Consultor y Curador: Marcelo Roffé
+-- © Fair Support Fair Play 2026 - Todos los derechos reservados - Fair Support Fair Play

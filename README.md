@@ -374,10 +374,11 @@ La aplicación estará disponible en `http://localhost:3000`
 
 ## 👥 Equipo y Contribución
 
-### Asesor Profesional Principal
+### Consultor y Curador de Contenido
 **Marcelo Roffé** - Psicólogo deportivo
 - Autor: "Mi hijo el campeón"
 - Especialización: Gestión del éxito y la presión en el ámbito atlético infantil
+- Rol: Consultor profesional y curador de contenido especializado
 
 ### ¿Cómo Contribuir?
 
@@ -468,7 +469,7 @@ Si el sistema detecta indicadores críticos:
 - **Fair Support Fair Play**: GNU AGPL v3 License (código adaptado)
 
 ### Contenido
-**Marcelo Roffe © 2026 - Todos los Derechos Reservados**
+**Fair Support Fair Play © 2026 | Consultor: Marcelo Roffé - Todos los Derechos Reservados**
 - Todo el contenido educativo (FAQ, artículos, videos, ejercicios)
 - Metodología de análisis y alertas basada en su trabajo
 - Marca "Fair Support Fair Play"

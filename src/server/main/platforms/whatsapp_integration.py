@@ -14,7 +14,8 @@ Características:
 Instalación WAHA:
   docker run -d -p 3000:3000 devlikeapro/waha
 
-© Marcelo Roffe 2026
+Consultor y Curador: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados
 """
 
 from typing import Optional, Dict, Any

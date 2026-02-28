@@ -2,8 +2,8 @@
 NotebookLM Connector - Fair Support Fair Play
 ==============================================
 
-Conector para importar contenido curado desde NotebookLM de Marcelo Roffé.
-Utiliza el MCP (Model Context Protocol) para acceder al notebook:
+Conector para importar contenido curado desde NotebookLM.
+Utiliza el MCP (Model Context Protocol) para acceder al notebook de contenido curado.
 https://notebooklm.google.com/notebook/89cd6d09-50ce-4127-a507-26c2d348fbd1
 
 IMPORTANTE: Todo contenido importado va a cola de revisión (CIRCUITO CERRADO)
@@ -12,7 +12,8 @@ Instalación del MCP:
   pip install notebooklm-mcp
   uv run notebooklm-mcp init https://notebooklm.google.com/notebook/89cd6d09-50ce-4127-a507-26c2d348fbd1
 
-© Marcelo Roffe 2026
+Consultor y Curador de Contenido: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados
 """
 
 from typing import List, Dict, Optional, Any
@@ -296,7 +297,7 @@ IMPORTANTE:
                     "content": answer,
                     "status": "needs_parsing",
                     "source": "notebooklm",
-                    "author": "Marcelo Roffé",
+                    "author": "Fair Support Fair Play"  # Curado por Marcelo Roffé,
                     "imported_at": datetime.now().isoformat(),
                     "needs_human_review": True,
                     "parsing_error": "JSON inválido"
@@ -315,7 +316,7 @@ IMPORTANTE:
                     "tags": [category.lower().replace(" ", "_")],
                     "status": "pending_review",  # ⚠️ CIRCUITO CERRADO
                     "source": "notebooklm",
-                    "author": "Marcelo Roffé",
+                    "author": "Fair Support Fair Play"  # Curado por Marcelo Roffé,
                     "imported_at": datetime.now().isoformat(),
                     "needs_human_review": True
                 })
@@ -333,7 +334,7 @@ IMPORTANTE:
                     "difficulty": exercise.get("difficulty", "medio"),
                     "status": "pending_review",
                     "source": "notebooklm",
-                    "author": "Marcelo Roffé",
+                    "author": "Fair Support Fair Play"  # Curado por Marcelo Roffé,
                     "imported_at": datetime.now().isoformat(),
                     "needs_human_review": True
                 })
@@ -350,7 +351,7 @@ IMPORTANTE:
                     "lessons": case.get("lessons", ""),
                     "status": "pending_review",
                     "source": "notebooklm",
-                    "author": "Marcelo Roffé",
+                    "author": "Fair Support Fair Play"  # Curado por Marcelo Roffé,
                     "imported_at": datetime.now().isoformat(),
                     "needs_human_review": True
                 })

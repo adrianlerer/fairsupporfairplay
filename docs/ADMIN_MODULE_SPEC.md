@@ -165,7 +165,7 @@ class NotebookLMConnector:
                     "age_group": faq.get("age_group", "all"),
                     "status": "pending_review",  # ⚠️ CIRCUITO CERRADO
                     "source": "notebooklm",
-                    "author": "Marcelo Roffé",
+                    "curator": "Marcelo Roffé",
                     "imported_at": "now()",
                     "needs_human_review": True
                 })
@@ -179,7 +179,7 @@ class NotebookLMConnector:
                     "duration_minutes": exercise.get("duration", 10),
                     "status": "pending_review",
                     "source": "notebooklm",
-                    "author": "Marcelo Roffé",
+                    "curator": "Marcelo Roffé",
                     "needs_human_review": True
                 })
             

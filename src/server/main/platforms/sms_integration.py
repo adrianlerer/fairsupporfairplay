@@ -12,7 +12,8 @@ Uso:
 Instalación:
   pip install twilio
 
-© Marcelo Roffe 2026
+Consultor y Curador: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados
 """
 
 from twilio.rest import Client

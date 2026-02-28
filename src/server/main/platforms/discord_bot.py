@@ -14,7 +14,8 @@ Características:
 Instalación:
   pip install discord.py
 
-© Marcelo Roffe 2026
+Consultor y Curador: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados
 """
 
 import discord
@@ -424,7 +425,8 @@ Si tienes dudas sobre las reglas, puedes escribirme aquí en privado o usar el c
             inline=False
         )
         
-        embed.set_footer(text="© Marcelo Roffe 2026 - Fair Support Fair Play")
+        embed.set_footer(text="Consultor y Curador: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados - Fair Support Fair Play")
         
         await ctx.send(embed=embed)
     

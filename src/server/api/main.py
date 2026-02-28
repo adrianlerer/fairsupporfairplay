@@ -13,7 +13,8 @@ Endpoints:
 
 Tecnología: FastAPI + PostgreSQL + OpenAI
 
-© Marcelo Roffe 2026
+Consultor y Curador de Contenido: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados
 """
 
 from fastapi import FastAPI, HTTPException, Depends, status
@@ -126,7 +127,7 @@ class FAQItem(BaseModel):
     category: str
     question: str
     answer: str
-    author: str = "Marcelo Roffé"
+    author: str = "Fair Support Fair Play"  # Curado por Marcelo Roffé
     age_group: str = "all"
     sport: str = "fútbol"
     tags: List[str] = []
@@ -851,7 +852,8 @@ if __name__ == "__main__":
     ║  Running on http://0.0.0.0:{port}                              ║
     ║                                                              ║
     ║  Docs: http://0.0.0.0:{port}/docs                              ║
-    ║  © Marcelo Roffe 2026                                        ║
+    ║  Consultor y Curador: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados                                        ║
     ╚══════════════════════════════════════════════════════════════╝
     """)
     

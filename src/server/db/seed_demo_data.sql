@@ -2,7 +2,8 @@
 -- FAIR SUPPORT FAIR PLAY - Demo Data para Inversores
 -- ============================================================================
 -- Este script crea datos realistas para demostrar la plataforma
--- © Marcelo Roffe 2026
+-- Consultor y Curador: Marcelo Roffé
+-- © Fair Support Fair Play 2026 - Todos los derechos reservados
 -- ============================================================================
 
 -- ============================================================================
@@ -69,7 +70,7 @@ INSERT INTO faq_items (category, question, answer, author, age_group, sport, tag
 3. **Rutina pre-partido**: Crea una rutina que repitas siempre (música, estiramientos, charla con compañeros). La familiaridad reduce la ansiedad.
 
 Recuerda: La presión es un privilegio. Significa que estás en un nivel donde las cosas importan. Aprende a ser amigo de tus nervios, no enemigo.', 
- 'Marcelo Roffé', '13-15', 'fútbol', 
+ 'Fair Support Fair Play', '13-15', 'fútbol', 
  '["nervios", "ansiedad", "pre-partido", "presión"]',
  42, 156, NOW(), '00000000-0000-0000-0000-000000000001'),
 
@@ -86,7 +87,7 @@ Recuerda: La presión es un privilegio. Significa que estás en un nivel donde l
 4. **Busca ayuda externa si es necesario**: Habla con tu entrenador. Muchas veces el entrenador puede mediar y explicar a los padres sobre presión y desarrollo deportivo.
 
 Recuerda: Tus padres te aman y quieren lo mejor para ti. A veces no saben cómo expresarlo sin presionar. Tu comunicación puede ayudarles a ser mejores supporters.',
- 'Marcelo Roffé', '13-15', 'all',
+ 'Fair Support Fair Play', '13-15', 'all',
  '["padres", "presión familiar", "comunicación", "expectativas"]',
  38, 142, NOW(), '00000000-0000-0000-0000-000000000001'),
 
@@ -111,7 +112,7 @@ Recuerda: Tus padres te aman y quieren lo mejor para ti. A veces no saben cómo 
 - COMPARTE tu experiencia con compañeros más jóvenes (enseñar ayuda a sanar).
 
 **Recuerda**: Todos los grandes atletas han perdido muchas veces. Messi, Ronaldo, Serena Williams, Nadal... La diferencia es que ellos usaron cada derrota como combustible para mejorar. Tú también puedes.',
- 'Marcelo Roffé', 'all', 'all',
+ 'Fair Support Fair Play', 'all', 'all',
  '["derrota", "fracaso", "resiliencia", "superación"]',
  55, 203, NOW(), '00000000-0000-0000-0000-000000000001'),
 
@@ -140,7 +141,7 @@ Los errores son lecciones disfrazadas. Los mejores jugadores tienen libretas men
 La mejor manera de redimirte de un error es trabajar duro en el próximo entrenamiento. Muestra que ese error te hizo más fuerte, no más débil.
 
 Frase clave: "Err is human, learn is champion" (Errar es humano, aprender es de campeones)',
- 'Marcelo Roffé', '13-15', 'all',
+ 'Fair Support Fair Play', '13-15', 'all',
  '["error", "culpa", "autoestima", "aprendizaje"]',
  47, 178, NOW(), '00000000-0000-0000-0000-000000000001'),
 
@@ -183,7 +184,7 @@ Si los gritos incluyen:
 Entonces debes reportarlo a tus padres Y a la dirección del club. Esto no es coaching, es abuso.
 
 **Recuerda**: Un buen entrenador te desafía, pero nunca te destruye. Tú mereces un ambiente donde puedas crecer, no donde te sientas pequeño.',
- 'Marcelo Roffé', '13-15', 'all',
+ 'Fair Support Fair Play', '13-15', 'all',
  '["entrenador", "gritos", "maltrato", "comunicación"]',
  33, 119, NOW(), '00000000-0000-0000-0000-000000000001'),
 
@@ -222,7 +223,7 @@ La adrenalina del partido compensará la falta de sueño.
 
 **Truco profesional**:
 Muchos atletas olímpicos practican "meditación del cuerpo" (body scan). Hay apps gratuitas como Calm o Headspace con sesiones de 10 minutos que funcionan muy bien.',
- 'Marcelo Roffé', '13-15', 'all',
+ 'Fair Support Fair Play', '13-15', 'all',
  '["sueño", "insomnio", "ansiedad", "pre-partido"]',
  29, 98, NOW(), '00000000-0000-0000-0000-000000000001');
 
@@ -250,7 +251,7 @@ INSERT INTO exercise_items (title, description, instructions, category, duration
  'all',
  'all',
  '["respiración", "ansiedad", "relajación", "mindfulness"]',
- 'Marcelo Roffé',
+ 'Fair Support Fair Play',
  NOW(),
  '00000000-0000-0000-0000-000000000001'),
 
@@ -274,7 +275,7 @@ INSERT INTO exercise_items (title, description, instructions, category, duration
  '13-15',
  'all',
  '["visualización", "mentalidad", "preparación", "confianza"]',
- 'Marcelo Roffé',
+ 'Fair Support Fair Play',
  NOW(),
  '00000000-0000-0000-0000-000000000001'),
 
@@ -297,7 +298,7 @@ INSERT INTO exercise_items (title, description, instructions, category, duration
  '13-15',
  'all',
  '["autoestima", "diálogo interno", "confianza", "mindfulness"]',
- 'Marcelo Roffé',
+ 'Fair Support Fair Play',
  NOW(),
  '00000000-0000-0000-0000-000000000001');
 
@@ -440,7 +441,7 @@ INSERT INTO content_review_queue (
  '{"question": "¿Cómo puedo mejorar mi concentración durante el partido?", "answer": "La concentración es clave en el deporte. Aquí tienes 3 técnicas: 1) Práctica mindfulness 10 min diarios, 2) Establece señales de reset (ej: tocar tu número), 3) Enfócate en el presente, no en el resultado final. El cerebro solo puede estar 100% en el ahora.", "age_group": "13-15", "sport": "all"}',
  'Presión Competitiva',
  'notebooklm',
- 'Marcelo Roffé',
+ 'Fair Support Fair Play',
  'pending_review',
  '{"inappropriate_language": false, "consistent_principles": true, "hallucinations_detected": false, "risk_level": "bajo", "recommendations": "Contenido apropiado, verificar fuentes de las técnicas mencionadas"}',
  true,
@@ -451,7 +452,7 @@ INSERT INTO content_review_queue (
  '{"title": "Técnica de Reset Mental", "description": "Ejercicio rápido para recuperar concentración durante el partido", "instructions": ["Identifica una señal física (tocar tu número, ajustar tu cinta)", "Asocia esa señal con un pensamiento positivo", "Cada vez que pierdas concentración, ejecuta tu señal", "Respira profundo 2 veces", "Vuelve al juego con mente fresca"], "duration_minutes": 1, "difficulty": "fácil"}',
  'Concentración',
  'notebooklm',
- 'Marcelo Roffé',
+ 'Fair Support Fair Play',
  'pending_review',
  '{"inappropriate_language": false, "consistent_principles": true, "hallucinations_detected": false, "risk_level": "bajo", "recommendations": "Excelente ejercicio práctico, listo para aprobar"}',
  true,

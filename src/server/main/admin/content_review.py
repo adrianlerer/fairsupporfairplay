@@ -16,7 +16,8 @@ Protección:
 - Detección de alucinaciones y sesgos
 - Trazabilidad completa
 
-© Marcelo Roffe 2026
+Consultor y Curador: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados
 """
 
 from typing import Dict, List, Optional, Any

@@ -17,7 +17,7 @@
 **Endpoints Principales:**
 ```
 GET  /health                            - Health check + DB verification
-POST /api/admin/import-from-notebooklm  - Importar desde notebook de Roffé
+POST /api/admin/import-from-notebooklm  - Importar contenido curado
 GET  /api/admin/pending-reviews         - Contenido pendiente de revisión
 POST /api/admin/approve-content         - Aprobar y publicar contenido
 POST /api/admin/reject-content          - Rechazar contenido
@@ -38,7 +38,7 @@ GET  /api/analytics/overview            - Métricas del dashboard
 
 **Tablas:**
 - `users` - Niños, padres, admins
-- `faq_items` - FAQ aprobadas de Marcelo Roffé
+- `faq_items` - FAQ curadas por expertos
 - `exercise_items` - Ejercicios prácticos
 - `child_queries` - Log de consultas con análisis IA
 - `alerts` - Sistema semáforo (🟢🟡🔴)
@@ -78,7 +78,7 @@ else:
 **Datos de prueba profesionales para demo a inversores:**
 
 - **5 familias completas** (padres + niños)
-- **6 FAQ detalladas** escritas por Marcelo Roffé
+- **6 FAQ detalladas** curadas por expertos (Marcelo Roffé - Consultor)
   * Manejo de nervios pre-partido
   * Presión de padres
   * Superación de derrotas
@@ -281,7 +281,7 @@ curl http://localhost:8000/api/alerts/parent/11111111-1111-1111-1111-11111111111
 | Feature | Fair Support | Terapia Online | Apps Genéricas |
 |---------|--------------|----------------|----------------|
 | Especializado deportes | ✅ | ❌ | ❌ |
-| Contenido Marcelo Roffé | ✅ | ❌ | ❌ |
+| Contenido Curado | ✅ | ❌ | ❌ |
 | Alertas automáticas padres | ✅ | ❌ | ❌ |
 | Comunidad moderada | ✅ | ❌ | Parcial |
 | IA específica emociones deportivas | ✅ | ❌ | ❌ |
@@ -300,7 +300,7 @@ curl http://localhost:8000/api/alerts/parent/11111111-1111-1111-1111-11111111111
 - **Proyección conservadora**: 10,000 usuarios año 1 = $1.2M ARR
 
 ### 5. **Validación Científica**
-- **Marcelo Roffé**: Psicólogo deportivo reconocido internacionalmente
+- **Consultor y Curador**: Marcelo Roffé, psicólogo deportivo reconocido internacionalmente
 - **Contenido basado en investigación** de su libro "Mi hijo el campeón"
 - **Metodología probada** con equipos profesionales
 - **Respaldo académico** para credibilidad institucional
@@ -396,7 +396,7 @@ obs --start-recording
 **Uso de fondos:**
 - 40% ($100K) - Desarrollo (Dashboard, Mobile App, Integraciones)
 - 25% ($62.5K) - Marketing y Adquisición (Clubes, Escuelas)
-- 20% ($50K) - Contenido (Marcelo Roffé, Psicólogos adicionales)
+- 20% ($50K) - Contenido (Curaduría profesional + Psicólogos adicionales)
 - 15% ($37.5K) - Operaciones (Servers, APIs, Legal/Compliance)
 
 **Valuación pre-money:** $2M USD
@@ -429,7 +429,9 @@ obs --start-recording
 
 ---
 
-**© Marcelo Roffe 2026 - Fair Support Fair Play**  
+**Consultor y Curador de Contenido:** Marcelo Roffé  
+**© Fair Support Fair Play 2026 - Todos los derechos reservados**
+
 *Transformando la presión en motivación, el fracaso en aprendizaje*
 
 🏆 **"Fair Support, Fair Play - Porque el deporte debe ser un espacio de crecimiento, no de presión"**

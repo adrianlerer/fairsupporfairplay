@@ -582,5 +582,6 @@ async def test_content_cannot_be_published_without_approval():
 
 ---
 
-**© Marcelo Roffe 2026 - Fair Support Fair Play**  
+**Consultor y Curador: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados - Fair Support Fair Play**  
 *Todos los Derechos Reservados*

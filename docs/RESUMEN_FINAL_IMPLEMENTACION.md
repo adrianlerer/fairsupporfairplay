@@ -463,7 +463,8 @@ El sistema está listo para:
 
 ---
 
-**© Marcelo Roffe 2026 - Fair Support Fair Play**  
+**Consultor y Curador: Marcelo Roffé
+© Fair Support Fair Play 2026 - Todos los derechos reservados - Fair Support Fair Play**  
 *Todos los Derechos Reservados*
 
 ---
