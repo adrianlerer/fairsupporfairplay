@@ -2,20 +2,27 @@ import { NextResponse } from "next/server"
 import { auth0 } from "./lib/auth0"
 
 export async function middleware(request) {
-	// Redirect the root path to the chat page
+	// Public routes - no authentication required
+	const publicPaths = ["/investor"]
+	const isPublicPath = publicPaths.some(path =>
+		request.nextUrl.pathname.startsWith(path)
+	)
+
+	if (isPublicPath) {
+		return NextResponse.next()
+	}
+
+	// Redirect the root path to the investor page (public demo)
 	if (request.nextUrl.pathname === "/") {
 		const { origin } = new URL(request.url)
-		return NextResponse.redirect(`${origin}/chat`)
+		return NextResponse.redirect(`${origin}/investor`)
 	}
 
 	if (process.env.NEXT_PUBLIC_ENVIRONMENT === "selfhost") {
-		// In self-host mode, authentication is handled by a static token,
-		// so we don't need Auth0's session middleware.
 		return NextResponse.next()
 	}
 	const authRes = await auth0.middleware(request)
 
-	// authentication routes — let the middleware handle it
 	if (request.nextUrl.pathname.startsWith("/auth")) {
 		return authRes
 	}
@@ -23,7 +30,6 @@ export async function middleware(request) {
 	const { origin } = new URL(request.url)
 	const session = await auth0.getSession()
 
-	// user does not have a session — redirect to login
 	if (!session) {
 		return NextResponse.redirect(`${origin}/auth/login`)
 	}
@@ -33,15 +39,6 @@ export async function middleware(request) {
 
 export const config = {
 	matcher: [
-		/*
-		 * Match all request paths except for the ones starting with:
-		 * - _next/static (static files)
-		 * - _next/image (image optimization files)
-		 * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-		 * - api (API routes)
-		 * - PWA files (manifest, icons, service worker, workbox)
-		 * - .png and .svg files (static images)
-		 */
 		"/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|api|manifest.json|manifest.webmanifest|sw.js|workbox-.*\\.js$|.*\\.png$|.*\\.svg$).*)"
 	]
 }

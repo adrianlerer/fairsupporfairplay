@@ -13,14 +13,6 @@
       "dest": "src/client/$1"
     }
   ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "build": {
-    "env": {
-      "NEXT_PUBLIC_API_URL": "@api_url"
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",

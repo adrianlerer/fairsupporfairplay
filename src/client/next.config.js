@@ -41,7 +41,8 @@ const nextConfig = {
 	skipTrailingSlashRedirect: true
 }
 
-if (process.env.NODE_ENV === "production") {
+// Use standalone output only for Docker deployments, not for Vercel
+if (process.env.NODE_ENV === "production" && process.env.VERCEL !== "1") {
 	nextConfig.output = "standalone"
 }
 
