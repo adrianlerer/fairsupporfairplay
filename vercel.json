@@ -1,18 +1,9 @@
 {
-  "version": 2,
-  "name": "fair-support-fair-play",
-  "builds": [
-    {
-      "src": "src/client/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/client/$1"
-    }
-  ],
+  "buildCommand": "cd src/client && npm run build",
+  "devCommand": "cd src/client && npm run dev",
+  "installCommand": "cd src/client && npm install",
+  "framework": "nextjs",
+  "outputDirectory": "src/client/.next",
   "headers": [
     {
       "source": "/(.*)",
