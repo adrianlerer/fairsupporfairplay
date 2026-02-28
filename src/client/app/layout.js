@@ -1,11 +1,18 @@
 // src/client/app/layout.js
-import { Auth0Provider } from "@auth0/nextjs-auth0"
 import "@styles/globals.css" // Import global styles for the application
 import { Toaster } from "react-hot-toast"
 import React, { Suspense } from "react"
 import ReactQueryProvider from "@lib/ReactQueryProvider"
 import LayoutWrapper from "@components/layout/LayoutWrapper"
 import { PostHogProvider } from "@components/PostHogProvider"
+
+const isSelfHost = process.env.NEXT_PUBLIC_ENVIRONMENT === "selfhost"
+
+// Conditionally import Auth0Provider only when not in selfhost mode
+let Auth0Provider
+if (!isSelfHost) {
+	Auth0Provider = require("@auth0/nextjs-auth0").Auth0Provider
+}
 
 /**
  * Metadata for the RootLayout component.
@@ -17,17 +24,6 @@ export const metadata = {
 	description: "Your personal AI that actually gets work done" // Description of the application, used for SEO purposes
 }
 
-/**
- * RootLayout Component - The root layout for the entire application.
- *
- * This component wraps the entire application and sets up the basic structure,
- * including global styles, a Toaster for notifications, and the main content area.
- * It is a Server Component in Next.js, indicated by the `async` keyword.
- *
- * @param {object} props - The component props.
- * @param {React.ReactNode} props.children - The child components that represent the application's content.
- * @returns {React.ReactNode} - The RootLayout component UI.
- */
 export default function RootLayout({ children }) {
 	return (
 		<html lang="en" suppressHydrationWarning>
@@ -66,7 +62,7 @@ export default function RootLayout({ children }) {
 				<meta name="theme-color" content="#F1A21D" />
 			</head>
 			<body className="font-sans" suppressHydrationWarning>
-				<Auth0Provider>
+				{isSelfHost ? (
 					<ReactQueryProvider>
 						<Toaster position="bottom-right" />
 						<div className="flex h-screen w-full text-white overflow-hidden">
@@ -75,7 +71,18 @@ export default function RootLayout({ children }) {
 							</Suspense>
 						</div>
 					</ReactQueryProvider>
-				</Auth0Provider>
+				) : (
+					<Auth0Provider>
+						<ReactQueryProvider>
+							<Toaster position="bottom-right" />
+							<div className="flex h-screen w-full text-white overflow-hidden">
+								<Suspense>
+									<LayoutWrapper>{children}</LayoutWrapper>
+								</Suspense>
+							</div>
+						</ReactQueryProvider>
+					</Auth0Provider>
+				)}
 			</body>
 		</html>
 	)
