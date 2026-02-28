@@ -1,9 +1,5 @@
 {
-  "buildCommand": "cd src/client && npm install --legacy-peer-deps && npm run build",
-  "devCommand": "cd src/client && npm run dev",
-  "installCommand": "cd src/client && npm install --legacy-peer-deps",
   "framework": "nextjs",
-  "outputDirectory": "src/client/.next",
   "headers": [
     {
       "source": "/(.*)",
