@@ -45,7 +45,7 @@
 		"lucide-react": "^0.475.0",
 		"mongodb": "^6.8.0",
 		"neo4j-driver": "^5.28.1",
-		"next": "^15.1.7",
+		"next": "^15.2.3",
 		"node-fetch": "^3.3.2",
 		"posthog-js": "^1.257.0",
 		"posthog-node": "^5.5.0",
