@@ -1,18 +1,5 @@
 {
-  "version": 2,
-  "name": "fair-support-fair-play",
-  "builds": [
-    {
-      "src": "src/client/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/client/$1"
-    }
-  ],
+  "framework": "nextjs",
   "headers": [
     {
       "source": "/(.*)",
