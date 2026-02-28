@@ -1,0 +1,33 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "pip install -r requirements.txt"
+  },
+  "deploy": {
+    "startCommand": "cd src/server/api && uvicorn main:app --host 0.0.0.0 --port $PORT",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  },
+  "services": [
+    {
+      "name": "api",
+      "icon": "🚀"
+    },
+    {
+      "name": "postgres",
+      "icon": "🐘",
+      "type": "postgres"
+    }
+  ],
+  "environments": {
+    "production": {
+      "variables": {
+        "DATABASE_URL": "${{Postgres.DATABASE_URL}}",
+        "OPENAI_API_KEY": "${{OPENAI_API_KEY}}",
+        "NODE_ENV": "production",
+        "PORT": "8000"
+      }
+    }
+  }
+}
