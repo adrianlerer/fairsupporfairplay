@@ -9,7 +9,15 @@ import GlobalSearch from "@components/ui/GlobalSearch"
 import { useGlobalShortcuts } from "@hooks/useGlobalShortcuts"
 import { cn } from "@utils/cn"
 import toast from "react-hot-toast"
-import { useUser } from "@auth0/nextjs-auth0"
+// In selfhost mode, Auth0Provider is not mounted, so useUser would fail.
+// Provide a safe fallback.
+const isSelfHost = process.env.NEXT_PUBLIC_ENVIRONMENT === "selfhost"
+let useUserHook
+if (!isSelfHost) {
+	useUserHook = require("@auth0/nextjs-auth0").useUser
+} else {
+	useUserHook = () => ({ user: null, error: null, isLoading: false })
+}
 import { usePostHog } from "posthog-js/react"
 import {
 	useUIStore,
@@ -444,7 +452,7 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export default function LayoutWrapper({ children }) {
-	const { user, error: authError, isLoading: isAuthLoading } = useUser()
+	const { user, error: authError, isLoading: isAuthLoading } = useUserHook()
 	const {
 		isSearchOpen,
 		isMobileNavOpen,
@@ -478,7 +486,7 @@ export default function LayoutWrapper({ children }) {
 	const [isLoading, setIsLoading] = useState(true)
 	const [isAllowed, setIsAllowed] = useState(false)
 
-	const showNav = !["/", "/onboarding"].includes(pathname)
+	const showNav = !["/", "/onboarding", "/investor"].includes(pathname)
 
 	useEffect(() => {
 		if (user && posthog) {
