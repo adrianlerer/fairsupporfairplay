@@ -15,6 +15,7 @@ import HeroSection from '../components/landing/HeroSection';
 import ProblemSolution from '../components/landing/ProblemSolution';
 import MarketOpportunity from '../components/landing/MarketOpportunity';
 import ProductShowcase from '../components/landing/ProductShowcase';
+import ComplianceSection from '../components/landing/ComplianceSection';
 import BusinessModel from '../components/landing/BusinessModel';
 import TechnologyStack from '../components/landing/TechnologyStack';
 import TeamSection from '../components/landing/TeamSection';
@@ -45,6 +46,9 @@ export default function InvestorLandingPage() {
               <a href="#producto" className="text-gray-700 hover:text-gray-900 font-medium">
                 Producto
               </a>
+              <a href="#cumplimiento" className="text-gray-700 hover:text-gray-900 font-medium">
+                Cumplimiento
+              </a>
               <a href="#metricas" className="text-gray-700 hover:text-gray-900 font-medium">
                 Métricas
               </a>
@@ -68,6 +72,7 @@ export default function InvestorLandingPage() {
         <ProblemSolution />
         <MarketOpportunity />
         <ProductShowcase />
+        <ComplianceSection />
         <BusinessModel />
         <TechnologyStack />
         <MetricsSection />
@@ -154,6 +159,19 @@ export default function InvestorLandingPage() {
                 <button className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
                   Probar Análisis →
                 </button>
+              </div>
+
+              <div className="p-4 bg-emerald-50 rounded-lg">
+                <h3 className="font-semibold text-emerald-900 mb-2">🛡️ Dashboard de Cumplimiento</h3>
+                <p className="text-emerald-800 text-sm mb-3">
+                  Panel parental con métricas de seguridad, límites de tiempo y alertas en vivo.
+                </p>
+                <a
+                  href="/parent/compliance"
+                  className="inline-block px-4 py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors"
+                >
+                  Ver Dashboard Parental →
+                </a>
               </div>
             </div>
           </div>
