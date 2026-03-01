@@ -29,6 +29,9 @@ import asyncpg
 import openai
 from contextlib import asynccontextmanager
 
+# Import compliance router
+from compliance import router as compliance_router
+
 # Configuración
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/fairsupport")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -69,6 +72,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Include compliance router
+app.include_router(compliance_router)
 
 
 # ============================================================================
