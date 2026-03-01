@@ -19,7 +19,8 @@ import GlobalSearch from "./GlobalSearch"
 import { useGlobalShortcuts } from "@hooks/useGlobalShortcuts"
 import { cn } from "@utils/cn"
 import toast from "react-hot-toast"
-import { useUser } from "@auth0/nextjs-auth0"
+// Auth0 removed - stub useUser
+const useUser = () => ({ user: null, error: null, isLoading: false })
 import { usePostHog } from "posthog-js/react"
 import { motion } from "framer-motion"
 
