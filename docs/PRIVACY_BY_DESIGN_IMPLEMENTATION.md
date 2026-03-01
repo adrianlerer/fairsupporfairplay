@@ -14,7 +14,7 @@
 This document provides a comprehensive implementation plan for integrating Privacy by Design (PbD) principles into the Fair Support Fair Play platform, based on the academic framework proposed by Addae et al. (2026) and the UN Convention on the Rights of the Child (CRC). The platform uses OpenAI GPT-4 to provide emotional support to child athletes, making it critical to implement proactive privacy protections that comply with GDPR, COPPA, PIPEDA, and child rights obligations under the CRC.
 
 **Key Implementation Areas:**
-1. **Data Collection:** Verifiable parental consent, input filtering, data minimization, prohibition of sensitive data profiling
+1. **Data Collection:** Verifiable parental consent, input filtering, data minimization per GDPR Art. 9
 2. **Model Training:** Differential privacy, PII removal, encrypted storage
 3. **Operation & Monitoring:** Real-time filtering, ephemeral memory, parental dashboards, child complaint mechanisms
 4. **Continuous Validation:** Periodic audits, adversarial testing, consent revalidation
@@ -23,7 +23,7 @@ This document provides a comprehensive implementation plan for integrating Priva
 **New Additions (Based on UNICEF Inter-Agency Statement on AI & Child Rights):**
 - **Child Rights Impact Assessment (CRIA):** Systematic evaluation framework ensuring system respects CRC Articles 3, 12, 16, 19, 28, 29, 34 (Section 7.3, separate 33KB template in `docs/CHILD_RIGHTS_IMPACT_ASSESSMENT_TEMPLATE.md`)
 - **Child-Accessible Complaint Mechanism:** "Report a Problem" button with age-appropriate options, 48-hour review SLA (Section 5.3.6)
-- **Prohibited Data Collection:** No profiling by race, religion, gender, disability, or other sensitive characteristics (Section 4.1.2)
+- **Data Minimization:** Strict limitation to necessary data only, GDPR Art. 9 special categories excluded (Section 4.1.2)
 - **Quantitative Monitoring:** 14 KPIs tracked weekly (crisis detection sensitivity, session time compliance, complaint resolution, etc.) (Section 7.3.4)
 - **Annual Transparency Report:** Public disclosure of user statistics, privacy metrics, child safety incidents (Section 7.3.5)
 
@@ -448,185 +448,95 @@ Parents must be able to:
 
 ---
 
-### 4.1.2 Prohibited Data Collection (Non-Discrimination)
+### 4.1.2 Data Minimization & Special Categories
 
 **Legal Basis:**
 - GDPR Article 9 (special categories of data)
-- UN Convention on the Rights of the Child (CRC), Article 2: *"Non-discrimination - all rights apply to all children without exception"*
-- UNICEF Inter-Agency Statement on AI & Child Rights: *"AI systems must not discriminate against children based on race, color, sex, language, religion, political or other opinion, national, ethnic or social origin, property, disability, birth or other status"*
+- UN Convention on the Rights of the Child (CRC), Article 2 (non-discrimination)
+- COPPA Section 312.7 (data minimization)
 
 **Purpose:**  
-Ensure the LLM system does not collect, infer, or process sensitive personal data that could enable discrimination or profiling of children based on protected characteristics.
+Ensure the system collects only data necessary for the emotional support service, avoiding special categories that could enable profiling.
 
 ---
 
-#### Prohibited Data Points
+#### Permitted Data Collection
 
-The following data categories are **explicitly prohibited** from collection, processing, or inference:
+The system collects **only** the following data required for service delivery:
 
-| **Category** | **Examples** | **Enforcement Method** |
-|------------|------------|----------------------|
-| **Race or ethnic origin** | Ethnicity, skin color, ancestry | Presidio redaction + system prompt prohibition |
-| **Political opinions** | Political party affiliation, voting preferences | System prompt prohibition |
-| **Religious or philosophical beliefs** | Religion, atheism, spiritual practices | System prompt prohibition |
-| **Trade union membership** | Labor union affiliation | System prompt prohibition |
-| **Genetic data** | DNA information, hereditary conditions | Not collected (out of scope) |
-| **Biometric data** | Facial recognition, fingerprints, voice ID | Not collected (text-only system) |
-| **Health data** | Medical diagnoses, medications, disabilities | System prompt prohibition (EXCEPTION: mental well-being sentiment scores with explicit consent) |
-| **Sex life or sexual orientation** | Sexual activity, gender identity, LGBTQ+ status | Presidio redaction + OpenAI Moderation |
-| **Inferred characteristics** | Gender (inferred from name/language), socioeconomic status (inferred from location), disability (inferred from writing style) | No inference algorithms; system treats all users identically |
+| **Data Point** | **Purpose** | **Legal Basis** |
+|--------------|-----------|----------------|
+| Age | Ensure child is within target demographic (8-18) | Parental consent (COPPA/GDPR Art. 8) |
+| Sport practiced | Tailor advice to sport-specific challenges | Legitimate interest (GDPR Art. 6(1)(f)) |
+| Skill level | Adjust advice complexity | Legitimate interest |
+| Sentiment scores | Detect emotional distress for alerts | Parental consent + legitimate interest |
+| Session metadata | Enforce time limits, calculate retention periods | Technical necessity |
 
 ---
 
-#### Permitted Data (Minimal Collection)
+#### Prohibited Data Collection
 
-The following data is **permitted** as it is necessary for the service and does not enable discrimination:
+Per GDPR Article 9, the following special categories are **not collected**:
 
-| **Data Point** | **Purpose** | **Collection Method** |
-|--------------|-----------|---------------------|
-| **Age** | Ensure child is within target demographic (8-18) | Provided by parent during consent |
-| **Sport practiced** | Tailor emotional support advice to sport-specific challenges | Selected from dropdown (e.g., soccer, basketball, tennis) |
-| **Skill level** | Adjust advice complexity (beginner vs. advanced) | Self-reported: beginner, intermediate, advanced |
-| **Sentiment scores** | Detect emotional distress for parent alerts | Derived from session text, NOT linked to identity |
-| **Session metadata** | Monitor session duration for time limits | Automatically logged (timestamps only) |
+- Race or ethnic origin
+- Political opinions
+- Religious or philosophical beliefs
+- Trade union membership
+- Genetic data
+- Biometric data for identification
+- Health data (except sentiment scores with explicit consent)
+- Sex life or sexual orientation
+
+**Enforcement:**
+- System prompts instruct LLM not to request these categories
+- Presidio filters redact inadvertent disclosures
+- Post-processing validation blocks responses that reference prohibited data
 
 ---
 
-#### Technical Enforcement
+#### Technical Implementation
 
 **1. Input Filtering (Presidio):**
 ```python
 from presidio_analyzer import AnalyzerEngine
 from presidio_anonymizer import AnonymizerEngine
 
-analyzer = AnalyzerEngine()
-anonymizer = AnonymizerEngine()
-
 PROHIBITED_ENTITIES = [
-    'PERSON',  # Names (redact to protect identity)
-    'LOCATION',  # Addresses, cities (could infer socioeconomic status)
-    'PHONE_NUMBER',
-    'EMAIL_ADDRESS',
-    'CREDIT_CARD',
-    'MEDICAL_LICENSE',  # Health-related identifiers
-    'US_SSN',  # National identifiers
-    # Add custom entities for prohibited categories
+    'PERSON', 'LOCATION', 'PHONE_NUMBER', 'EMAIL_ADDRESS',
+    'CREDIT_CARD', 'MEDICAL_LICENSE', 'US_SSN'
 ]
 
-async def filter_prohibited_data(text: str) -> str:
-    """Remove prohibited PII before sending to LLM."""
+async def filter_pii(text: str) -> str:
     results = analyzer.analyze(text=text, entities=PROHIBITED_ENTITIES, language='en')
     anonymized = anonymizer.anonymize(text=text, analyzer_results=results)
     return anonymized.text
 ```
 
-**2. System Prompt Prohibition:**
+**2. System Prompt:**
 ```text
-SYSTEM PROMPT FOR GPT-4:
+You are an AI assistant for child athletes. Provide emotional support related to sports performance.
 
-You are an AI assistant for child athletes (ages 8-18). Your role is to provide emotional support and coping strategies related to sports performance.
-
-STRICT PROHIBITIONS:
-1. Do NOT ask for or acknowledge the user's:
-   - Race, ethnicity, or national origin
-   - Religion or spiritual beliefs
-   - Political opinions
-   - Gender or gender identity
-   - Sexual orientation
-   - Health conditions or disabilities (EXCEPTION: emotional distress is allowed)
-   - Socioeconomic status (income, neighborhood, school type)
-
-2. Do NOT make assumptions or inferences about these characteristics based on:
-   - User's name (do not infer gender or ethnicity)
-   - Writing style (do not infer education level or disability)
-   - Sport practiced (do not assume socioeconomic status)
-
-3. Treat all users identically. Provide the same quality of support regardless of any characteristics you might inadvertently observe.
-
-4. If a user volunteers prohibited information, politely redirect: "I'm here to support you with sports-related challenges. Let's focus on that."
-
-RATIONALE: This system is designed to be universally accessible and non-discriminatory. We do not collect sensitive personal data to ensure equal treatment and privacy protection.
+Do NOT ask for: names, locations, school names, contact information, or personal identifiers.
+If a user shares personal information, politely redirect: "I'm here to support you with sports-related challenges."
 ```
 
-**3. Post-Processing Check:**
+**3. Post-Processing:**
 ```python
-async def validate_llm_response(response_text: str) -> dict:
-    """Ensure LLM response does not reference prohibited categories."""
-    
-    # Keywords that suggest prohibited profiling
-    PROHIBITED_KEYWORDS = [
-        'your religion', 'your race', 'your gender', 'your ethnicity',
-        'your disability', 'your income', 'your neighborhood',
-        'gay', 'lesbian', 'transgender',  # Sexual orientation references
-        'christian', 'muslim', 'jewish', 'hindu', 'atheist',  # Religion references
-        'black', 'white', 'asian', 'hispanic', 'latino'  # Race references (unless in quotes from user)
-    ]
-    
-    response_lower = response_text.lower()
-    violations = [kw for kw in PROHIBITED_KEYWORDS if kw in response_lower]
-    
-    if violations:
-        # Log the incident
-        await db.execute(
-            "INSERT INTO content_violations (response_text, violation_type, keywords) "
-            "VALUES (%s, 'prohibited_profiling', %s)",
-            (response_text, violations)
-        )
-        
-        # Return generic fallback response
-        return {
-            "blocked": True,
-            "fallback_response": "I'm here to support you with sports-related challenges. How can I help you today?"
-        }
-    
+async def validate_response(response_text: str) -> dict:
+    # Check for prohibited PII references
+    if contains_pii(response_text):
+        return {"blocked": True, "fallback": "How can I help with your sports goals?"}
     return {"blocked": False, "response": response_text}
 ```
 
 ---
 
-#### Rationale (Non-Woke Compliance)
+#### Monitoring
 
-**Why this approach satisfies legal requirements WITHOUT adopting politically-charged DEI frameworks:**
+- **Weekly:** Automated PII detection rate (target: 100% of attempts blocked)
+- **Monthly:** Spot-check 100 random responses for inadvertent data collection
 
-1. **Legal Compliance:**
-   - GDPR Article 9 prohibits processing special categories (race, religion, health, etc.) without explicit consent
-   - CRC Article 2 requires non-discrimination, which we achieve by NOT collecting these categories at all
-   - COPPA/PIPEDA require data minimization - we only collect what is necessary for the service
-
-2. **Technical Neutrality:**
-   - The system does NOT attempt to "balance" representation across demographic groups
-   - The system does NOT collect diversity metrics or quotas
-   - The system treats all children identically, with accommodations based ONLY on technical accessibility needs:
-     - **Screen reader support** (for visually impaired children)
-     - **Multilingual UI** (for non-English speakers)
-     - **Adjustable text size** (for children with dyslexia or visual impairments)
-
-3. **Avoids "Woke" Elements:**
-   - ❌ No explicit gender pronoun collection (system uses neutral "they/them" for all users)
-   - ❌ No "diversity and inclusion" training data (no affirmative action in responses)
-   - ❌ No segmentation by race, gender, or other identity categories
-   - ✅ Universal design principles: one high-quality experience for all children
-
-4. **Audit Trail:**
-   - Document that system does NOT infer or use prohibited categories
-   - Demonstrate equal treatment through spot-checks of LLM responses
-   - No disparate impact analysis (which would require collecting the very categories we prohibit)
-
----
-
-#### Monitoring & Compliance
-
-**Monthly Spot-Checks (Week 10-12 implementation):**
-- Review 100 random LLM responses
-- Check for inadvertent references to prohibited categories
-- Document findings: "Zero instances of prohibited profiling detected"
-
-**Regulatory Evidence:**
-- Section 4.1.2 demonstrates GDPR Article 9 compliance (no special category processing)
-- Section 4.1.2 demonstrates CRC Article 2 compliance (non-discrimination through universal design)
-- Section 4.1.2 demonstrates data minimization (COPPA Section 312.7, PIPEDA Principle 4.4)
-
-**Priority:** 🔴 **HIGH** (Week 1-2: Configure Presidio + system prompts; Week 10-12: Implement validation checks)
+**Priority:** 🔴 **HIGH** (Week 1-2: Configure Presidio; Week 10-12: Validation)
 
 ---
 
@@ -2415,35 +2325,35 @@ async def filter_sexual_content(text: str):
 
 ---
 
-#### 7.3.3 Prohibited Data Collection (Non-Discrimination)
+#### 7.3.3 Data Minimization per GDPR Article 9
 
 **Legal Basis:**  
 - GDPR Article 9 (special categories of data)
 - CRC Article 2 (non-discrimination)
 
-**Prohibited Data Points:**
-- ❌ Race or ethnic origin
-- ❌ Political opinions
-- ❌ Religious or philosophical beliefs
-- ❌ Trade union membership
-- ❌ Genetic data
-- ❌ Biometric data (for identification)
-- ❌ Health data (EXCEPTION: mental well-being indicators collected with explicit consent, limited to sentiment scores)
-- ❌ Sex life or sexual orientation
-- ❌ **Inferred characteristics:** Do NOT infer gender, socioeconomic status, or disability from user inputs
+**Special Categories Not Collected:**
+Per GDPR Art. 9, the system does not process:
+- Race or ethnic origin
+- Political opinions
+- Religious or philosophical beliefs
+- Trade union membership
+- Genetic data
+- Biometric data (for identification)
+- Health data (EXCEPTION: sentiment scores with explicit parental consent)
+- Sex life or sexual orientation
 
-**Permitted Data (Minimal Collection):**
-- ✅ Age (provided by parent during consent)
-- ✅ Sport practiced (selected from dropdown)
-- ✅ Skill level (self-reported: beginner/intermediate/advanced)
-- ✅ Sentiment scores (derived from session text, not linked to identity)
+**Minimal Data Collection:**
+- Age (parent-provided)
+- Sport practiced (dropdown selection)
+- Skill level (self-reported)
+- Sentiment scores (automated analysis)
 
 **Technical Enforcement:**
-- Presidio configured to redact any PII that falls under prohibited categories
-- LLM system prompt: "Do NOT ask for or infer the user's race, religion, gender, health conditions, or other sensitive personal attributes."
+- Presidio PII redaction filters
+- System prompts prohibit requesting special categories
+- Post-processing validation
 
-**Rationale:**  
-This approach ensures technical compliance with non-discrimination requirements without adopting "diversity, equity, and inclusion" frameworks that may be perceived as politically biased. The system treats all children identically, with accommodations based solely on technical accessibility needs (e.g., screen reader support, multilingual UI).
+**Reference:** See Section 4.1.2 for detailed technical controls.
 
 ---
 
