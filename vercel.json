@@ -1,9 +1,5 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd src/client && npm install --legacy-peer-deps && npm run build",
-  "devCommand": "cd src/client && npm run dev",
-  "installCommand": "cd src/client && npm install --legacy-peer-deps",
-  "outputDirectory": "src/client/.next",
   "headers": [
     {
       "source": "/(.*)",
@@ -47,19 +43,6 @@
           "value": "public, max-age=31536000, immutable"
         }
       ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.fair-support.vercel.app"
-        }
-      ],
-      "destination": "https://fair-support.vercel.app",
-      "permanent": true
     }
   ]
 }

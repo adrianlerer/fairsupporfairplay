@@ -1,0 +1,43 @@
+# Vercel Build Ignore
+# Only build from src/client/
+
+# Ignore everything in root except src/client
+/*
+!/src
+/src/*
+!/src/client
+
+# Ignore node_modules everywhere
+**/node_modules
+
+# Ignore build artifacts
+**/.next
+**/out
+
+# Ignore git
+.git
+.gitignore
+
+# Ignore docs
+*.md
+!src/client/**/*.md
+
+# Ignore backend
+/src/server
+
+# Ignore test files
+**/*.test.js
+**/*.test.jsx
+**/*.test.ts
+**/*.test.tsx
+test_*.py
+
+# Ignore deployment scripts
+deploy_*.sh
+start_*.sh
+*.ps1
+*.yaml
+
+# Ignore package files in root
+/package.json
+/package-lock.json
