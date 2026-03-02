@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "rm -rf .next ../../node_modules/@auth0 && next build",
+    "build": "rm -rf .next ../../node_modules && next build",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --check .",

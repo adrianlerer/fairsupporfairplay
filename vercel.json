@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "cd src/client && npm run build",
+  "buildCommand": "rm -rf node_modules && cd src/client && npm run build",
   "installCommand": "cd src/client && npm install --legacy-peer-deps",
   "outputDirectory": "src/client/.next",
   "headers": [
