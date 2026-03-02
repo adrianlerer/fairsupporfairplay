@@ -6,10 +6,10 @@
   "author": "existence",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "cd src/client && npm run dev",
+    "build": "cd src/client && npm run build",
+    "start": "cd src/client && npm run start",
+    "postinstall": "cd src/client && npm install --legacy-peer-deps",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
