@@ -1,0 +1,13 @@
+{
+  "name": "@auth0/nextjs-auth0",
+  "version": "0.0.0",
+  "description": "Stub package - Auth0 removed from project",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./index.js",
+    "./server": "./index.js",
+    "./edge": "./index.js",
+    "./*": "./index.js"
+  }
+}
